@@ -12,5 +12,5 @@ public class PartyDto {
     private String name;
     private int vote;
 
-    //private Set<CandidateDto> candidateDtos;
+    private Set<CandidateDto> candidates;
 }

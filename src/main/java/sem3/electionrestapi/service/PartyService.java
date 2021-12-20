@@ -8,6 +8,7 @@ import java.util.List;
 public interface PartyService {
 
     PartyDto createParty(PartyDto partyDto);
+
     PartyResponse getAllParties(int pageNo, int pageSize, String sortBy, String sortDir);
 
     PartyDto getPartyById(int id);
