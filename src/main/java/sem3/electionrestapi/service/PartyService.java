@@ -9,4 +9,6 @@ public interface PartyService {
     PartyDto createParty(PartyDto partyDto);
 
     List<PartyDto> getAllParties();
+
+    PartyDto getPartyById(int id);
 }

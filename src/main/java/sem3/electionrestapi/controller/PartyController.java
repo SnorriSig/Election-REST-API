@@ -30,4 +30,10 @@ public class PartyController {
     public List<PartyDto> getAllParties() {
         return partyService.getAllParties();
     }
+
+    // get party by id
+    @GetMapping("/{id}")
+    public ResponseEntity<PartyDto> getPartyById(@PathVariable(name = "id") int id) {
+        return ResponseEntity.ok(partyService.getPartyById(id));
+    }
 }

@@ -3,6 +3,7 @@ package sem3.electionrestapi.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import sem3.electionrestapi.entity.Party;
+import sem3.electionrestapi.exception.ResourceNotFoundException;
 import sem3.electionrestapi.payload.PartyDto;
 import sem3.electionrestapi.repository.PartyRepository;
 import sem3.electionrestapi.service.PartyService;
@@ -41,6 +42,12 @@ public class PartyServiceImpl implements PartyService {
     public List<PartyDto> getAllParties() {
         List<Party> parties = partyRepository.findAll();
         return parties.stream().map(party -> mapToDTO(party)).collect(Collectors.toList());
+    }
+
+    @Override
+    public PartyDto getPartyById(int id) {
+        Party party = partyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Party", "id", id));
+        return mapToDTO(party);
     }
 
     // convert Entity into DTO
