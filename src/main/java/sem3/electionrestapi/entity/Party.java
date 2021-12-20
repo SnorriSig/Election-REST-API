@@ -21,7 +21,6 @@ public class Party {
     private int id;
     @Column(nullable = false)
     private String name;
-    private String homepage;
     @Column(name = "votes")
     private int vote;
 
