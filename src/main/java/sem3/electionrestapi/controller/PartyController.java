@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sem3.electionrestapi.entity.Party;
 import sem3.electionrestapi.payload.PartyDto;
+import sem3.electionrestapi.payload.PartyResponse;
 import sem3.electionrestapi.service.PartyService;
 
 import java.util.List;
@@ -27,8 +28,13 @@ public class PartyController {
 
     // list all political parties rest api
     @GetMapping
-    public List<PartyDto> getAllParties() {
-        return partyService.getAllParties();
+    public PartyResponse getAllParties(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
+    ) {
+        return partyService.getAllParties(pageNo, pageSize, sortBy, sortDir);
     }
 
     // get party by id
