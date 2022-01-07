@@ -45,6 +45,27 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
+    public List<CandidateDto> getAllCandidates() {
+        // retrieve all candidates
+        List<Candidate> candidates = candidateRepository.findAll();
+        // convert list of candidate entities to list of candidate dto's
+        return candidates.stream().map(candidate -> mapToDTO(candidate)).collect(Collectors.toList());
+    }
+
+    @Override
+    public CandidateDto getCandidateByPartyIdAndCandidateId(int partyId, int candidateId) {
+        // retrieve party entity by id
+        Party party = retrievePartyById(partyId);
+
+        // retrieve candidate by id
+        Candidate candidate = retrieveCandidateById(candidateId);
+
+        // check if candidate belongs to party
+        checkEntityRelation(party,candidate);
+        return mapToDTO(candidate);
+    }
+
+    @Override
     public List<CandidateDto> getCandidatesByPartyId(int partyId) {
         // retrieve candidates by partyId
         List<Candidate> candidates = candidateRepository.findByPartyId(partyId);
@@ -72,17 +93,24 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public void deleteCandidate(int partyId, int candidateId) {
-        // retrieve party by id
-        Party party = retrievePartyById(partyId);
-
+    public void deleteCandidateById(int candidateId) {
         // retrieve candidate by id
         Candidate candidate = retrieveCandidateById(candidateId);
-
-        // check if candidate belongs to party
-        checkEntityRelation(party,candidate);
         candidateRepository.delete(candidate);
     }
+
+//    @Override
+//    public void deleteCandidate(int partyId, int candidateId) {
+//        // retrieve party by id
+//        Party party = retrievePartyById(partyId);
+//
+//        // retrieve candidate by id
+//        Candidate candidate = retrieveCandidateById(candidateId);
+//
+//        // check if candidate belongs to party
+//        checkEntityRelation(party,candidate);
+//        candidateRepository.delete(candidate);
+//    }
 
     // retrieve party entity by id
     private Party retrievePartyById(int partyId) {

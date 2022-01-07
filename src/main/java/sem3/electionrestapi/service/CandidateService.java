@@ -9,9 +9,15 @@ public interface CandidateService {
 
     CandidateDto createCandidate(int partyId, CandidateDto candidateDto);
 
+    List<CandidateDto> getAllCandidates();
+
+    CandidateDto getCandidateByPartyIdAndCandidateId(int partyId, int candidateId);
+
     List<CandidateDto> getCandidatesByPartyId(int partyId);
 
     CandidateDto updateCandidate(int partyId, int candidateId, CandidateDto candidateRequest);
 
-    void deleteCandidate(int partyId, int candidateId);
+    void deleteCandidateById(int candidateId);
+
+    //void deleteCandidate(int partyId, int candidateId);
 }

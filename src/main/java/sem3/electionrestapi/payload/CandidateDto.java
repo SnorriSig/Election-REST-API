@@ -7,4 +7,5 @@ public class CandidateDto {
     private int id;
     private String firstName;
     private String lastName;
+    private int partyId;
 }

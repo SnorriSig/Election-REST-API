@@ -24,6 +24,18 @@ public class CandidateController {
         return new ResponseEntity<>(candidateService.createCandidate(partyId, candidateDto), HttpStatus.CREATED);
     }
 
+    @GetMapping("/candidates")
+    public List<CandidateDto> getAllCandidates() {
+        return candidateService.getAllCandidates();
+    }
+
+    @GetMapping("/parties/{partyId}/candidates/{candidateId}")
+    public CandidateDto getCandidateById(@PathVariable(value = "partyId") int partyId,
+                                         @PathVariable(value = "candidateId") int candidateId) {
+
+        return candidateService.getCandidateByPartyIdAndCandidateId(partyId, candidateId);
+    }
+
     @GetMapping("/parties/{partyId}/candidates")
     private List<CandidateDto> getCandidatesByPartyId(@PathVariable(value = "partyId") int partyId) {
         return candidateService.getCandidatesByPartyId(partyId);
@@ -37,9 +49,15 @@ public class CandidateController {
         return new ResponseEntity<>(updateCandidate, HttpStatus.OK);
     }
 
-    @DeleteMapping("/parties/{partyId}/candidates/{candidateId}")
-    public ResponseEntity<String> deleteCandidate(@PathVariable(value = "partyId") int partyId, @PathVariable(value = "candidateId") int candidateId) {
-        candidateService.deleteCandidate(partyId,candidateId);
+    @DeleteMapping("/candidates/{candidateId}")
+    public ResponseEntity<String> deleteCandidateById(@PathVariable(value = "candidateId") int candidateId) {
+        candidateService.deleteCandidateById(candidateId);
         return new ResponseEntity<>("Candidate has been successfully removed", HttpStatus.OK);
     }
+
+//    @DeleteMapping("/parties/{partyId}/candidates/{candidateId}")
+//    public ResponseEntity<String> deleteCandidate(@PathVariable(value = "partyId") int partyId, @PathVariable(value = "candidateId") int candidateId) {
+//        candidateService.deleteCandidate(partyId,candidateId);
+//        return new ResponseEntity<>("Candidate has been successfully removed", HttpStatus.OK);
+//    }
 }
